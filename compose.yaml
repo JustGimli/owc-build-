@@ -1,0 +1,38 @@
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    restart: always
+    network_mode: host
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - media:/var/www/html/media
+      - static:/var/www/html/admin/static
+      - ./frontend/build/:/var/www/html
+      - ./nginx/semilyfamily.crt:/etc/nginx/ssl/semilyfamily.crt
+      - ./nginx/semilyfamily.key:/etc/nginx/ssl/semilyfamily.key
+    depends_on:
+      - server
+
+  server:
+    network_mode: host
+    restart: unless-stopped
+    build:
+      context: ./backends/
+      dockerfile: Dockerfile
+    environment:
+      SQL_ENGINE: django.db.backends.postgresql
+      SQL_DATABASE: postgres
+      SQL_HOST: localhost
+      SQL_USER: postgres
+      SQL_PASSWORD: postgres
+      SQL_PORT: 5432
+
+    entrypoint: ./api.sh
+    volumes:
+      - static:/home/app/static
+      - media:/home/app/media
+
+volumes:
+  media: {}
+  static: {}
+  postgres_data: {}

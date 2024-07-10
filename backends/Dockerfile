@@ -3,7 +3,7 @@ FROM python:3.11-alpine
 # set environment variables  
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1  
-ENV DJANGO_SETTINGS_MODULE=config.settings
+ENV DJANGO_SETTINGS_MODULE=app.settings
 ENV DockerHome='/home/app'
 
 

@@ -8,8 +8,8 @@ services:
       - media:/var/www/html/media
       - static:/var/www/html/admin/static
       - ./frontend/build/:/var/www/html
-      - ./nginx/semilyfamily.crt:/etc/nginx/ssl/semilyfamily.crt
-      - ./nginx/semilyfamily.key:/etc/nginx/ssl/semilyfamily.key
+      - ./nginx/rizz-inst_online.crt:/etc/nginx/ssl/rizz-inst_online.crt
+      - ./nginx/rizz-inst_online.key:/etc/nginx/ssl/rizz-inst_online.key
     depends_on:
       - server
 
@@ -21,10 +21,10 @@ services:
       dockerfile: Dockerfile
     environment:
       SQL_ENGINE: django.db.backends.postgresql
-      SQL_DATABASE: postgres
-      SQL_HOST: localhost
-      SQL_USER: postgres
-      SQL_PASSWORD: postgres
+      SQL_DATABASE: drop_db
+      SQL_HOST: 62.113.113.203
+      SQL_USER: admin_user
+      SQL_PASSWORD: Fos#83Fkladfq)
       SQL_PORT: 5432
 
     entrypoint: ./api.sh
@@ -35,4 +35,3 @@ services:
 volumes:
   media: {}
   static: {}
-  postgres_data: {}

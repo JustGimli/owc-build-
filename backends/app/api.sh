@@ -17,11 +17,8 @@ do
     sleep 3
 done
 
-until python3 manage.py create_product
-do
-    sleep 3
-done
 
 
 
-gunicorn config.wsgi --bind 0.0.0.0:8000 --workers 3 --threads 3
+
+gunicorn app.wsgi --bind 0.0.0.0:8000 --workers 3 --threads 3

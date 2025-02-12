@@ -7,7 +7,7 @@ import telebot
 import os
 
 TELEGRAM_BOT_TOKEN = "7839760812:AAG_Rbtv9XOxiSHD3ovzyG426pMqG0TYNRk"
-TELEGRAM_CHAT_ID = "-2405720830"
+TELEGRAM_CHAT_ID = "-1002405720830"
 # Получите ваш Telegram bot token из среды окружения или замените его напрямую
 TELEGRAM_BOT_TOKEN = TELEGRAM_BOT_TOKEN
 TELEGRAM_CHAT_ID = TELEGRAM_CHAT_ID

